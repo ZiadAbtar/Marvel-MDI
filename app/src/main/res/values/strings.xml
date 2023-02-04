@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Marvel MDI</string>
+    <string name="something_went_wrong">something went wrong</string>
+    <string name="check_server">server error</string>
 </resources>
