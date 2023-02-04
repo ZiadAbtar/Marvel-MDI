@@ -5,6 +5,8 @@ import com.google.gson.GsonBuilder
 import com.ziad.marvelmdi.data.remote.ApiInterface
 import com.ziad.marvelmdi.data.remote.AppInterceptor
 import com.ziad.marvelmdi.data.remote.EndPoints
+import com.ziad.marvelmdi.data.remote.repository.GeneralRepository
+import com.ziad.marvelmdi.domain.repository.IGeneralRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -63,4 +65,13 @@ object NetWorkModule {
     fun provideGson(): Gson {
         return GsonBuilder().create()
     }
+
+    @Provides
+    @Singleton
+    fun providesGeneralRepository(
+        apiInterface: ApiInterface
+    ): IGeneralRepository {
+        return GeneralRepository(apiInterface)
+    }
+
 }

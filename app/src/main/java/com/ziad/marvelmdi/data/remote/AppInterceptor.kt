@@ -19,7 +19,7 @@ class AppInterceptor @Inject constructor(
         val md5 = BigInteger(1, md.digest(toHash.toByteArray())).toString(16).padStart(32, '0')
 
         val request = chain.request()
-        val url = request.url().newBuilder()
+        val url = request.url.newBuilder()
             .addQueryParameter("ts", timeStamp)
             .addQueryParameter("hash", md5)
             .addQueryParameter("apikey", PUBLIC_KEY)
