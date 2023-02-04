@@ -2,7 +2,7 @@ package com.ziad.marvelmdi.di
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.ziad.marvelmdi.data.remote.AppApi
+import com.ziad.marvelmdi.data.remote.ApiInterface
 import com.ziad.marvelmdi.data.remote.AppInterceptor
 import com.ziad.marvelmdi.data.remote.EndPoints
 import dagger.Module
@@ -29,8 +29,8 @@ object NetWorkModule {
     @Singleton
     fun provideApiService(
         retrofit: Retrofit
-    ): AppApi =
-        retrofit.create(AppApi::class.java)
+    ): ApiInterface =
+        retrofit.create(ApiInterface::class.java)
 
 
     @Provides
