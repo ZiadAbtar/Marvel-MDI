@@ -37,6 +37,7 @@ class CharacterDetailsFragment :
             transitionName = characterImage
             Glide.with(this)
                 .load(characterImage)
+                .centerInside()
                 .into(this)
         }
 

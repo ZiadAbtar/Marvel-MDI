@@ -14,7 +14,7 @@ import com.ziad.marvelmdi.presentation.core.BaseEpoxyHolder
 import com.ziad.marvelmdi.utils.getUsableUrl
 
 @SuppressLint("NonConstantResourceId")
-@EpoxyModelClass(layout = R.layout.item_comic)
+@EpoxyModelClass(layout = R.layout.item_generic_detail)
 abstract class ComicItemModel : EpoxyModelWithHolder<ComicItemModel.Holder>() {
 
     @EpoxyAttribute
