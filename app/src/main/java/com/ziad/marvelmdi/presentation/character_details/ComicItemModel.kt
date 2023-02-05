@@ -9,7 +9,7 @@ import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.bumptech.glide.Glide
 import com.ziad.marvelmdi.R
-import com.ziad.marvelmdi.data.remote.model.Comic
+import com.ziad.marvelmdi.data.remote.model.GenericDetail
 import com.ziad.marvelmdi.presentation.core.BaseEpoxyHolder
 import com.ziad.marvelmdi.utils.getUsableUrl
 
@@ -18,7 +18,7 @@ import com.ziad.marvelmdi.utils.getUsableUrl
 abstract class ComicItemModel : EpoxyModelWithHolder<ComicItemModel.Holder>() {
 
     @EpoxyAttribute
-    lateinit var comic: Comic
+    lateinit var comic: GenericDetail
 
     @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
     lateinit var onItemClicked: (url: String) -> Unit

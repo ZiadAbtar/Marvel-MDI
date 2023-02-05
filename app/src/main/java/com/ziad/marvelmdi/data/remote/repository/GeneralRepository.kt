@@ -5,7 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.ziad.marvelmdi.data.remote.ApiInterface
 import com.ziad.marvelmdi.data.remote.model.BaseResponse
-import com.ziad.marvelmdi.data.remote.model.ComicsResponse
+import com.ziad.marvelmdi.data.remote.model.GenericDetailsResponse
 import com.ziad.marvelmdi.domain.repository.IGeneralRepository
 import com.ziad.marvelmdi.presentation.characters.CharactersPagingSource
 import kotlinx.coroutines.flow.Flow
@@ -18,6 +18,10 @@ class GeneralRepository @Inject constructor(private val api: ApiInterface) : IGe
                 CharactersPagingSource(api)
             }).flow
 
-    override suspend fun getComicsByCharacterId(id: Int): BaseResponse<ComicsResponse> =
+    override suspend fun getComicsByCharacterId(id: Int): BaseResponse<GenericDetailsResponse> =
         api.getFirst3ComicsByCharacterId(id)
+
+    override suspend fun getEventsByCharacterId(id: Int): BaseResponse<GenericDetailsResponse> =
+        api.getFirst3EventsByCharacterId(id)
+
 }

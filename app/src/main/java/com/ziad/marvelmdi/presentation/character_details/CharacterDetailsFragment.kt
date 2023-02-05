@@ -51,7 +51,14 @@ class CharacterDetailsFragment :
         binding.rvCharacterDetails.setController(controller)
 
         controller.setData(viewModel.data)
+
         viewModel.getComics(character.id, {
+            controller.setData(viewModel.data)
+        }, { errorCode: Int, message: String?, messageId: Int ->
+            println("ZIAD, error $errorCode")
+        })
+
+        viewModel.getEvents(character.id, {
             controller.setData(viewModel.data)
         }, { errorCode: Int, message: String?, messageId: Int ->
             println("ZIAD, error $errorCode")

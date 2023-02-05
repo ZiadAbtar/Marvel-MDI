@@ -9,4 +9,6 @@ object EndPoints {
 
     const val GET_CHARACTERS_FIRST_3_COMICS = "characters/{ID}/comics"
 
+    const val GET_CHARACTERS_FIRST_3_EVENTS = "characters/{ID}/events"
+
 }

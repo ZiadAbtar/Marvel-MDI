@@ -2,7 +2,7 @@ package com.ziad.marvelmdi.data.remote
 
 import com.ziad.marvelmdi.data.remote.model.BaseResponse
 import com.ziad.marvelmdi.data.remote.model.CharactersResponse
-import com.ziad.marvelmdi.data.remote.model.ComicsResponse
+import com.ziad.marvelmdi.data.remote.model.GenericDetailsResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -19,5 +19,12 @@ interface ApiInterface {
         @Path("ID") charId: Int,
         @Query("offset") offset: Int = 0,
         @Query("limit") limit: Int = 3,
-    ): BaseResponse<ComicsResponse>
+    ): BaseResponse<GenericDetailsResponse>
+
+    @GET(EndPoints.GET_CHARACTERS_FIRST_3_EVENTS)
+    suspend fun getFirst3EventsByCharacterId(
+        @Path("ID") charId: Int,
+        @Query("offset") offset: Int = 0,
+        @Query("limit") limit: Int = 3,
+    ): BaseResponse<GenericDetailsResponse>
 }

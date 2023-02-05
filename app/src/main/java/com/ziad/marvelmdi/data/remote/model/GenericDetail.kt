@@ -1,6 +1,6 @@
 package com.ziad.marvelmdi.data.remote.model
 
-data class Comic(
+data class GenericDetail(
     val id: Int,
     val title: String,
     val description: String,
