@@ -21,77 +21,35 @@ class CharacterDetailsEpoxyController(
 
     override fun buildModels() {
         data.forEach { (type, array) ->
-            when (type) {
-                Constants.COMICS -> {
-                    TitleEpoxyModel_()
-                        .id(type)
-                        .title(type)
-                        .addTo(this)
+            TitleEpoxyModel_()
+                .id(type)
+                .title(type)
+                .addTo(this)
 
-                    if (array == null) {
-                        LoadingEpoxyModel_()
-                            .id("$type loading")
-                            .addTo(this)
-                    } else if (array.isEmpty()) {
-                        EmptyEpoxyModel_()
-                            .id("$type empty")
-                            .addTo(this)
-                    } else {
-                        val comicModels = arrayListOf<ComicItemModel_>()
-                        for (item in array) {
-                            val comic = item as GenericDetail
-                            comicModels.add(
-                                ComicItemModel_()
-                                    .id(comic.id)
-                                    .comic(comic)
-                                    .onItemClicked(onComicClick)
-                            )
-                        }
-
-                        CarouselModel_()
-                            .id("$type carousel")
-                            .models(comicModels)
-                            .addTo(this)
-                    }
+            if (array == null) {
+                LoadingEpoxyModel_()
+                    .id("$type loading")
+                    .addTo(this)
+            } else if (array.isEmpty()) {
+                EmptyEpoxyModel_()
+                    .id("$type empty")
+                    .addTo(this)
+            } else {
+                val genericModels = arrayListOf<GenericDetailItemModel_>()
+                for (item in array) {
+                    val genericItem = item as GenericDetail
+                    genericModels.add(
+                        GenericDetailItemModel_()
+                            .id(genericItem.id)
+                            .comic(genericItem)
+                            .onItemClicked(onComicClick)
+                    )
                 }
-                Constants.EVENTS -> {
-                    TitleEpoxyModel_()
-                        .id(type)
-                        .title(type)
-                        .addTo(this)
 
-                    if (array == null) {
-                        LoadingEpoxyModel_()
-                            .id("$type loading")
-                            .addTo(this)
-                    } else if (array.isEmpty()) {
-                        EmptyEpoxyModel_()
-                            .id("$type empty")
-                            .addTo(this)
-                    } else {
-                        val comicModels = arrayListOf<ComicItemModel_>()
-                        for (item in array) {
-                            val comic = item as GenericDetail
-                            comicModels.add(
-                                ComicItemModel_()
-                                    .id(comic.id)
-                                    .comic(comic)
-                                    .onItemClicked(onComicClick)
-                            )
-                        }
-
-                        CarouselModel_()
-                            .id("$type carousel")
-                            .models(comicModels)
-                            .addTo(this)
-                    }
-                }
-                Constants.STORIES -> {
-
-                }
-                Constants.SERIES -> {
-
-                }
+                CarouselModel_()
+                    .id("$type carousel")
+                    .models(genericModels)
+                    .addTo(this)
             }
         }
     }
