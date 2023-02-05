@@ -18,7 +18,7 @@ class CharacterDetailsViewModel @Inject constructor(
     private val eventsUseCase: GetEventsUseCase) :
     ViewModel() {
 
-    private var _data = HashMap<String, List<Any>?>()
+    private var _data = LinkedHashMap<String, List<Any>?>()
     val data = _data
 
     init {

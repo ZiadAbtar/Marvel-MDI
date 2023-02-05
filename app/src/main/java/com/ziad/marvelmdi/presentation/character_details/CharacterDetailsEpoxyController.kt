@@ -12,9 +12,9 @@ class CharacterDetailsEpoxyController(
 ) :
     EpoxyController() {
 
-    private var data = HashMap<String, List<Any>?>()
+    private var data = LinkedHashMap<String, List<Any>?>()
 
-    fun setData(data: HashMap<String, List<Any>?>) {
+    fun setData(data: LinkedHashMap<String, List<Any>?>) {
         this.data = data
         requestModelBuild()
     }
