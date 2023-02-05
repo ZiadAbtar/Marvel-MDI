@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.ziad.marvelmdi.R
 import com.ziad.marvelmdi.databinding.FragmentCharachterDetailsBinding
 import com.ziad.marvelmdi.presentation.core.BaseFragment
+import com.ziad.marvelmdi.utils.Constants
 import com.ziad.marvelmdi.utils.getUsableUrl
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,7 +21,7 @@ class CharacterDetailsFragment :
 
     private val args: CharacterDetailsFragmentArgs by navArgs()
     private val viewModel: CharacterDetailsViewModel by viewModels()
-
+    private lateinit var controller: CharacterDetailsEpoxyController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedElementEnterTransition =
@@ -44,37 +45,52 @@ class CharacterDetailsFragment :
         binding.tvName.text = character.name
         binding.tvId.text = getString(R.string.id_s, character.id)
 
-        val controller = CharacterDetailsEpoxyController { comicUrl ->
+        controller = CharacterDetailsEpoxyController({ comicUrl ->
             val webIntent = Intent(Intent.ACTION_VIEW)
             webIntent.data = Uri.parse(comicUrl)
             startActivity(webIntent)
-        }
+        }, {
+            when (it) {
+                Constants.COMICS -> {
+                    viewModel.getComics(character.id) {
+                        controller.setData(viewModel.data)
+                    }
+                }
+                Constants.EVENTS -> {
+                    viewModel.getEvents(character.id) {
+                        controller.setData(viewModel.data)
+                    }
+                }
+                Constants.STORIES -> {
+                    viewModel.getStories(character.id) {
+                        controller.setData(viewModel.data)
+                    }
+                }
+                Constants.SERIES -> {
+                    viewModel.getSeries(character.id) {
+                        controller.setData(viewModel.data)
+                    }
+                }
+            }
+        })
         binding.rvCharacterDetails.setController(controller)
 
         controller.setData(viewModel.data)
 
-        viewModel.getComics(character.id, {
+        viewModel.getComics(character.id) {
             controller.setData(viewModel.data)
-        }, { errorCode: Int, message: String?, messageId: Int ->
-            println("ZIAD, error $errorCode")
-        })
+        }
 
-        viewModel.getEvents(character.id, {
+        viewModel.getEvents(character.id) {
             controller.setData(viewModel.data)
-        }, { errorCode: Int, message: String?, messageId: Int ->
-            println("ZIAD, error $errorCode")
-        })
+        }
 
-        viewModel.getSeries(character.id, {
+        viewModel.getSeries(character.id) {
             controller.setData(viewModel.data)
-        }, { errorCode: Int, message: String?, messageId: Int ->
-            println("ZIAD, error $errorCode")
-        })
+        }
 
-        viewModel.getStories(character.id, {
+        viewModel.getStories(character.id) {
             controller.setData(viewModel.data)
-        }, { errorCode: Int, message: String?, messageId: Int ->
-            println("ZIAD, error $errorCode")
-        })
+        }
     }
 }

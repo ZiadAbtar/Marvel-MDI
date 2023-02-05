@@ -2,6 +2,7 @@ package com.ziad.marvelmdi.presentation.character_details
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ziad.marvelmdi.data.local.ErrorObject
 import com.ziad.marvelmdi.data.remote.Resource
 import com.ziad.marvelmdi.domain.use_case.GetComicsUseCase
 import com.ziad.marvelmdi.domain.use_case.GetEventsUseCase
@@ -12,7 +13,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.*
 import javax.inject.Inject
+import kotlin.collections.LinkedHashMap
 
 @HiltViewModel
 class CharacterDetailsViewModel @Inject constructor(
@@ -35,8 +38,7 @@ class CharacterDetailsViewModel @Inject constructor(
 
     fun getComics(
         characterId: Int,
-        onRefresh: () -> Unit,
-        onError: (responseCode: Int, message: String?, stringResource: Int) -> Unit
+        onRefresh: () -> Unit
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             comicsUseCase(characterId).collect { resource ->
@@ -52,11 +54,8 @@ class CharacterDetailsViewModel @Inject constructor(
                         }
 
                         is Resource.Error -> {
-                            onError(
-                                resource.responseCode,
-                                resource.message,
-                                resource.stringResource
-                            )
+                            _data[Constants.COMICS] = Collections.singletonList(ErrorObject())
+                            onRefresh()
                         }
                     }
                 }
@@ -66,8 +65,7 @@ class CharacterDetailsViewModel @Inject constructor(
 
     fun getEvents(
         characterId: Int,
-        onRefresh: () -> Unit,
-        onError: (responseCode: Int, message: String?, stringResource: Int) -> Unit
+        onRefresh: () -> Unit
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             eventsUseCase(characterId).collect { resource ->
@@ -83,11 +81,8 @@ class CharacterDetailsViewModel @Inject constructor(
                         }
 
                         is Resource.Error -> {
-                            onError(
-                                resource.responseCode,
-                                resource.message,
-                                resource.stringResource
-                            )
+                            _data[Constants.EVENTS] = Collections.singletonList(ErrorObject())
+                            onRefresh()
                         }
                     }
                 }
@@ -97,8 +92,7 @@ class CharacterDetailsViewModel @Inject constructor(
 
     fun getSeries(
         characterId: Int,
-        onRefresh: () -> Unit,
-        onError: (responseCode: Int, message: String?, stringResource: Int) -> Unit
+        onRefresh: () -> Unit
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             seriesUseCase(characterId).collect { resource ->
@@ -114,11 +108,8 @@ class CharacterDetailsViewModel @Inject constructor(
                         }
 
                         is Resource.Error -> {
-                            onError(
-                                resource.responseCode,
-                                resource.message,
-                                resource.stringResource
-                            )
+                            _data[Constants.SERIES] = Collections.singletonList(ErrorObject())
+                            onRefresh()
                         }
                     }
                 }
@@ -128,8 +119,7 @@ class CharacterDetailsViewModel @Inject constructor(
 
     fun getStories(
         characterId: Int,
-        onRefresh: () -> Unit,
-        onError: (responseCode: Int, message: String?, stringResource: Int) -> Unit
+        onRefresh: () -> Unit
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             storiesUseCase(characterId).collect { resource ->
@@ -145,11 +135,8 @@ class CharacterDetailsViewModel @Inject constructor(
                         }
 
                         is Resource.Error -> {
-                            onError(
-                                resource.responseCode,
-                                resource.message,
-                                resource.stringResource
-                            )
+                            _data[Constants.STORIES] = Collections.singletonList(ErrorObject())
+                            onRefresh()
                         }
                     }
                 }

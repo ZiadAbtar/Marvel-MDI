@@ -5,4 +5,5 @@
     <string name="No_data">No Data</string>
     <string name="Marvel_Characters">Marvel Characters</string>
     <string name="id_s">ID: %d</string>
+    <string name="retry">Retry</string>
 </resources>
