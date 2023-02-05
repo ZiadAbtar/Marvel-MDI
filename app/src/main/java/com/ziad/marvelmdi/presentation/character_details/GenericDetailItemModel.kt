@@ -18,7 +18,7 @@ import com.ziad.marvelmdi.utils.getUsableUrl
 abstract class GenericDetailItemModel : EpoxyModelWithHolder<GenericDetailItemModel.Holder>() {
 
     @EpoxyAttribute
-    lateinit var comic: GenericDetail
+    lateinit var item: GenericDetail
 
     @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
     lateinit var onItemClicked: (url: String) -> Unit
@@ -26,17 +26,17 @@ abstract class GenericDetailItemModel : EpoxyModelWithHolder<GenericDetailItemMo
     override fun bind(holder: Holder) {
         super.bind(holder)
         with(holder) {
-            tvName.text = comic.title
+            tvName.text = item.title
 
             Glide
                 .with(tvName.context)
-                .load(comic.thumbnail.getUsableUrl())
+                .load(item.thumbnail.getUsableUrl())
                 .placeholder(R.color.grey)
                 .centerCrop()
                 .into(ivComic)
 
             root.setOnClickListener {
-                comic.urls?.let {
+                item.urls?.let {
                     onItemClicked(it[0].url)
                 }
 
@@ -47,7 +47,7 @@ abstract class GenericDetailItemModel : EpoxyModelWithHolder<GenericDetailItemMo
     class Holder : BaseEpoxyHolder() {
         val root: View by bind(R.id.root)
         val tvName: TextView by bind(R.id.tv_name)
-        val ivComic: ImageView by bind(R.id.iv_comic)
+        val ivComic: ImageView by bind(R.id.iv_item)
 
     }
 }

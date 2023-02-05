@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/iv_comic"
+        android:id="@+id/iv_item"
         android:layout_width="150dp"
         android:layout_height="250dp"
         android:adjustViewBounds="true"
@@ -25,8 +25,8 @@
         android:padding="5dp"
         android:textColor="@color/white"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@id/iv_comic"
-        app:layout_constraintEnd_toEndOf="@id/iv_comic"
-        app:layout_constraintStart_toStartOf="@id/iv_comic"
+        app:layout_constraintBottom_toBottomOf="@id/iv_item"
+        app:layout_constraintEnd_toEndOf="@id/iv_item"
+        app:layout_constraintStart_toStartOf="@id/iv_item"
         tools:text="Asdsdsad" />
 </androidx.constraintlayout.widget.ConstraintLayout>
