@@ -36,7 +36,10 @@ abstract class GenericDetailItemModel : EpoxyModelWithHolder<GenericDetailItemMo
                 .into(ivComic)
 
             root.setOnClickListener {
-                onItemClicked(comic.resourceURI)
+                comic.urls?.let {
+                    onItemClicked(it[0].url)
+                }
+
             }
         }
     }

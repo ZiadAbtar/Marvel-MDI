@@ -5,5 +5,5 @@ data class GenericDetail(
     val title: String,
     val description: String,
     val thumbnail: Thumbnail,
-    val resourceURI: String
+    val urls: List<GenericUrl>?
 ) : BaseDataResponse()
