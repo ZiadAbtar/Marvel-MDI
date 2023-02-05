@@ -1,5 +1,6 @@
 package com.ziad.marvelmdi.presentation.characters
 
+import android.widget.ImageView
 import androidx.paging.LoadState
 import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.paging3.PagingDataEpoxyController
@@ -9,7 +10,7 @@ import com.ziad.marvelmdi.presentation.core.ErrorEpoxyModel_
 import com.ziad.marvelmdi.presentation.core.LoadingEpoxyModel_
 
 
-class CharacterListEpoxyController(val onItemClicked: (character: Character) -> Unit) :
+class CharacterListEpoxyController(private val onItemClicked: (character: Character, ivCharacter: ImageView) -> Unit) :
     PagingDataEpoxyController<Character>() {
 
 

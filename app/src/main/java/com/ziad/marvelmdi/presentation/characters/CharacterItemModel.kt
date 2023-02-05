@@ -21,7 +21,7 @@ abstract class CharacterItemModel : EpoxyModelWithHolder<CharacterItemModel.Hold
     lateinit var character: Character
 
     @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
-    lateinit var onItemClicked: (character: Character) -> Unit
+    lateinit var onItemClicked: (character: Character, ivCharacter: ImageView) -> Unit
 
     override fun bind(holder: Holder) {
         super.bind(holder)
@@ -41,7 +41,7 @@ abstract class CharacterItemModel : EpoxyModelWithHolder<CharacterItemModel.Hold
                 .into(ivCharacter)
 
             root.setOnClickListener {
-                onItemClicked(character)
+                onItemClicked(character, ivCharacter)
             }
         }
     }
