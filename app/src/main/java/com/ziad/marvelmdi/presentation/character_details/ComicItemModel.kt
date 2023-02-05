@@ -32,6 +32,7 @@ abstract class ComicItemModel : EpoxyModelWithHolder<ComicItemModel.Holder>() {
                 .with(tvName.context)
                 .load(comic.thumbnail.getUsableUrl())
                 .placeholder(R.color.grey)
+                .centerCrop()
                 .into(ivComic)
 
             root.setOnClickListener {
