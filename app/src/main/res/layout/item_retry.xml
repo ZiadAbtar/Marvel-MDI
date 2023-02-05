@@ -8,7 +8,7 @@
         android:id="@+id/btn_retry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/red"
+        android:backgroundTint="@color/red_marvel"
         android:text="@string/retry"
         android:textColor="@color/white"
         app:cornerRadius="5dp"
