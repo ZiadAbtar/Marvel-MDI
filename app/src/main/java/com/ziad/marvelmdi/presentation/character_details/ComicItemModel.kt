@@ -1,0 +1,49 @@
+package com.ziad.marvelmdi.presentation.character_details
+
+import android.annotation.SuppressLint
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
+import com.airbnb.epoxy.EpoxyAttribute
+import com.airbnb.epoxy.EpoxyModelClass
+import com.airbnb.epoxy.EpoxyModelWithHolder
+import com.bumptech.glide.Glide
+import com.ziad.marvelmdi.R
+import com.ziad.marvelmdi.data.remote.model.Comic
+import com.ziad.marvelmdi.presentation.core.BaseEpoxyHolder
+import com.ziad.marvelmdi.utils.getUsableUrl
+
+@SuppressLint("NonConstantResourceId")
+@EpoxyModelClass(layout = R.layout.item_comic)
+abstract class ComicItemModel : EpoxyModelWithHolder<ComicItemModel.Holder>() {
+
+    @EpoxyAttribute
+    lateinit var comic: Comic
+
+    @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
+    lateinit var onItemClicked: (url: String) -> Unit
+
+    override fun bind(holder: Holder) {
+        super.bind(holder)
+        with(holder) {
+            tvName.text = comic.title
+
+            Glide
+                .with(tvName.context)
+                .load(comic.thumbnail.getUsableUrl())
+                .placeholder(R.color.grey)
+                .into(ivComic)
+
+            root.setOnClickListener {
+                onItemClicked(comic.resourceURI)
+            }
+        }
+    }
+
+    class Holder : BaseEpoxyHolder() {
+        val root: View by bind(R.id.root)
+        val tvName: TextView by bind(R.id.tv_name)
+        val ivComic: ImageView by bind(R.id.iv_comic)
+
+    }
+}

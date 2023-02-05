@@ -1,8 +1,9 @@
 package com.ziad.marvelmdi.presentation.character_details
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
@@ -42,10 +43,16 @@ class CharacterDetailsFragment :
         binding.tvName.text = character.name
         binding.tvId.text = getString(R.string.id_s, character.id)
 
+        val controller = CharacterDetailsEpoxyController { comicUrl ->
+            val webIntent = Intent(Intent.ACTION_VIEW)
+            webIntent.data = Uri.parse(comicUrl)
+            startActivity(webIntent)
+        }
+        binding.rvCharacterDetails.setController(controller)
+
+        controller.setData(viewModel.data)
         viewModel.getComics(character.id, {
-            println("ZIAD, success")
-        }, {
-            println("ZIAD, loading")
+            controller.setData(viewModel.data)
         }, { errorCode: Int, message: String?, messageId: Int ->
             println("ZIAD, error $errorCode")
         })

@@ -3,8 +3,8 @@ package com.ziad.marvelmdi.presentation.character_details
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ziad.marvelmdi.data.remote.Resource
-import com.ziad.marvelmdi.data.remote.model.Comic
 import com.ziad.marvelmdi.domain.use_case.GetComicsUseCase
+import com.ziad.marvelmdi.utils.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,10 +15,19 @@ import javax.inject.Inject
 class CharacterDetailsViewModel @Inject constructor(private val comicsUseCase: GetComicsUseCase) :
     ViewModel() {
 
+    private var _data = HashMap<String, List<Any>?>()
+    val data = _data
+
+    init {
+        _data[Constants.COMICS] = listOf()
+        _data[Constants.EVENTS] = listOf()
+        _data[Constants.SERIES] = listOf()
+        _data[Constants.STORIES] = listOf()
+    }
+
     fun getComics(
         characterId: Int,
-        onSuccess: (comics: List<Comic>) -> Unit,
-        onLoading: () -> Unit,
+        onRefresh: () -> Unit,
         onError: (responseCode: Int, message: String?, stringResource: Int) -> Unit
     ) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -26,10 +35,12 @@ class CharacterDetailsViewModel @Inject constructor(private val comicsUseCase: G
                 withContext(Dispatchers.Main) {
                     when (resource) {
                         is Resource.Loading -> {
-                            onLoading()
+                            _data[Constants.COMICS] = null
+                            onRefresh()
                         }
                         is Resource.Success -> {
-                            onSuccess(resource.data?.data?.results ?: listOf())
+                            _data[Constants.COMICS] = resource.data?.data?.results ?: listOf()
+                            onRefresh()
                         }
 
                         is Resource.Error -> {

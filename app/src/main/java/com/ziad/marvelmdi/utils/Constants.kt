@@ -7,4 +7,9 @@ object Constants {
     //however for this project, in order for the code to be easily installed and tested, they are totally exposed
     const val PUBLIC_KEY = "3eaee1fb89dace8b24cc4105397f3683"
     const val PRIVATE_KEY = "74cd00550d0b7364ac872a030d192054072e6a06"
+
+    const val COMICS = "Comics"
+    const val EVENTS = "Events"
+    const val SERIES = "Series"
+    const val STORIES = "Stories"
 }
