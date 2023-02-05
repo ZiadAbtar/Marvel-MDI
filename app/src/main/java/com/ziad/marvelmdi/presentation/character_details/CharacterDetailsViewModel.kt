@@ -11,6 +11,8 @@ import com.ziad.marvelmdi.domain.use_case.GetStoriesUseCase
 import com.ziad.marvelmdi.utils.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
@@ -29,6 +31,9 @@ class CharacterDetailsViewModel @Inject constructor(
     private var _data = LinkedHashMap<String, List<Any>?>()
     val data = _data
 
+    private val _refreshFlow = MutableStateFlow(0)
+    val refreshFlow: StateFlow<Int> = _refreshFlow
+
     init {
         _data[Constants.COMICS] = listOf()
         _data[Constants.EVENTS] = listOf()
@@ -37,8 +42,7 @@ class CharacterDetailsViewModel @Inject constructor(
     }
 
     fun getComics(
-        characterId: Int,
-        onRefresh: () -> Unit
+        characterId: Int
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             comicsUseCase(characterId).collect { resource ->
@@ -46,16 +50,16 @@ class CharacterDetailsViewModel @Inject constructor(
                     when (resource) {
                         is Resource.Loading -> {
                             _data[Constants.COMICS] = null
-                            onRefresh()
+                            _refreshFlow.value += 1
                         }
                         is Resource.Success -> {
                             _data[Constants.COMICS] = resource.data?.data?.results ?: listOf()
-                            onRefresh()
+                            _refreshFlow.value += 1
                         }
 
                         is Resource.Error -> {
                             _data[Constants.COMICS] = Collections.singletonList(ErrorObject())
-                            onRefresh()
+                            _refreshFlow.value += 1
                         }
                     }
                 }
@@ -64,8 +68,7 @@ class CharacterDetailsViewModel @Inject constructor(
     }
 
     fun getEvents(
-        characterId: Int,
-        onRefresh: () -> Unit
+        characterId: Int
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             eventsUseCase(characterId).collect { resource ->
@@ -73,16 +76,16 @@ class CharacterDetailsViewModel @Inject constructor(
                     when (resource) {
                         is Resource.Loading -> {
                             _data[Constants.EVENTS] = null
-                            onRefresh()
+                            _refreshFlow.value += 1
                         }
                         is Resource.Success -> {
                             _data[Constants.EVENTS] = resource.data?.data?.results ?: listOf()
-                            onRefresh()
+                            _refreshFlow.value += 1
                         }
 
                         is Resource.Error -> {
                             _data[Constants.EVENTS] = Collections.singletonList(ErrorObject())
-                            onRefresh()
+                            _refreshFlow.value += 1
                         }
                     }
                 }
@@ -91,8 +94,7 @@ class CharacterDetailsViewModel @Inject constructor(
     }
 
     fun getSeries(
-        characterId: Int,
-        onRefresh: () -> Unit
+        characterId: Int
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             seriesUseCase(characterId).collect { resource ->
@@ -100,16 +102,16 @@ class CharacterDetailsViewModel @Inject constructor(
                     when (resource) {
                         is Resource.Loading -> {
                             _data[Constants.SERIES] = null
-                            onRefresh()
+                            _refreshFlow.value += 1
                         }
                         is Resource.Success -> {
                             _data[Constants.SERIES] = resource.data?.data?.results ?: listOf()
-                            onRefresh()
+                            _refreshFlow.value += 1
                         }
 
                         is Resource.Error -> {
                             _data[Constants.SERIES] = Collections.singletonList(ErrorObject())
-                            onRefresh()
+                            _refreshFlow.value += 1
                         }
                     }
                 }
@@ -118,8 +120,7 @@ class CharacterDetailsViewModel @Inject constructor(
     }
 
     fun getStories(
-        characterId: Int,
-        onRefresh: () -> Unit
+        characterId: Int
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             storiesUseCase(characterId).collect { resource ->
@@ -127,16 +128,16 @@ class CharacterDetailsViewModel @Inject constructor(
                     when (resource) {
                         is Resource.Loading -> {
                             _data[Constants.STORIES] = null
-                            onRefresh()
+                            _refreshFlow.value += 1
                         }
                         is Resource.Success -> {
                             _data[Constants.STORIES] = resource.data?.data?.results ?: listOf()
-                            onRefresh()
+                            _refreshFlow.value += 1
                         }
 
                         is Resource.Error -> {
                             _data[Constants.STORIES] = Collections.singletonList(ErrorObject())
-                            onRefresh()
+                            _refreshFlow.value += 1
                         }
                     }
                 }

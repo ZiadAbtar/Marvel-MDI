@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
 import com.bumptech.glide.Glide
@@ -52,45 +53,39 @@ class CharacterDetailsFragment :
         }, {
             when (it) {
                 Constants.COMICS -> {
-                    viewModel.getComics(character.id) {
-                        controller.setData(viewModel.data)
-                    }
+                    viewModel.getComics(character.id)
                 }
                 Constants.EVENTS -> {
-                    viewModel.getEvents(character.id) {
-                        controller.setData(viewModel.data)
-                    }
+                    viewModel.getEvents(character.id)
                 }
                 Constants.STORIES -> {
-                    viewModel.getStories(character.id) {
-                        controller.setData(viewModel.data)
-                    }
+                    viewModel.getStories(character.id)
                 }
                 Constants.SERIES -> {
-                    viewModel.getSeries(character.id) {
-                        controller.setData(viewModel.data)
-                    }
+                    viewModel.getSeries(character.id)
                 }
             }
         })
         binding.rvCharacterDetails.setController(controller)
 
-        controller.setData(viewModel.data)
-
-        viewModel.getComics(character.id) {
-            controller.setData(viewModel.data)
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.refreshFlow.collect {
+                controller.setData(viewModel.data)
+            }
         }
 
-        viewModel.getEvents(character.id) {
-            controller.setData(viewModel.data)
-        }
 
-        viewModel.getSeries(character.id) {
-            controller.setData(viewModel.data)
-        }
+        fetchAll(character.id)
+    }
 
-        viewModel.getStories(character.id) {
-            controller.setData(viewModel.data)
-        }
+    private fun fetchAll(characterId: Int) {
+
+        viewModel.getComics(characterId)
+
+        viewModel.getEvents(characterId)
+
+        viewModel.getSeries(characterId)
+
+        viewModel.getStories(characterId)
     }
 }
