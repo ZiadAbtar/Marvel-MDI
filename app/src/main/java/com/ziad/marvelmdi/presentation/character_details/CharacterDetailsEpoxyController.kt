@@ -8,7 +8,7 @@ import com.ziad.marvelmdi.presentation.core.LoadingEpoxyModel_
 import com.ziad.marvelmdi.utils.Constants
 
 class CharacterDetailsEpoxyController(
-    private val onComicClick: (url: String) -> Unit
+    private val onItemClicked: (url: String) -> Unit
 ) :
     EpoxyController() {
 
@@ -41,8 +41,8 @@ class CharacterDetailsEpoxyController(
                     genericModels.add(
                         GenericDetailItemModel_()
                             .id(genericItem.id)
-                            .comic(genericItem)
-                            .onItemClicked(onComicClick)
+                            .item(genericItem)
+                            .onItemClicked(onItemClicked)
                     )
                 }
 

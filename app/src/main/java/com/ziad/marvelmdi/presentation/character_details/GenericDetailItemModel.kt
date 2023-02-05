@@ -27,13 +27,14 @@ abstract class GenericDetailItemModel : EpoxyModelWithHolder<GenericDetailItemMo
         super.bind(holder)
         with(holder) {
             tvName.text = item.title
-
-            Glide
-                .with(tvName.context)
-                .load(item.thumbnail.getUsableUrl())
-                .placeholder(R.color.grey)
-                .centerCrop()
-                .into(ivComic)
+            item.thumbnail?.let {
+                Glide
+                    .with(tvName.context)
+                    .load(it.getUsableUrl())
+                    .placeholder(R.color.grey)
+                    .centerCrop()
+                    .into(ivComic)
+            }
 
             root.setOnClickListener {
                 item.urls?.let {

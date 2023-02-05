@@ -11,4 +11,8 @@ object EndPoints {
 
     const val GET_CHARACTERS_FIRST_3_EVENTS = "characters/{ID}/events"
 
+    const val GET_CHARACTERS_FIRST_3_SERIES = "characters/{ID}/series"
+
+    const val GET_CHARACTERS_FIRST_3_STORIES = "characters/{ID}/stories"
+
 }

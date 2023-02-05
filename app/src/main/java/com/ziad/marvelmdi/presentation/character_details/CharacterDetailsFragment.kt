@@ -64,5 +64,17 @@ class CharacterDetailsFragment :
         }, { errorCode: Int, message: String?, messageId: Int ->
             println("ZIAD, error $errorCode")
         })
+
+        viewModel.getSeries(character.id, {
+            controller.setData(viewModel.data)
+        }, { errorCode: Int, message: String?, messageId: Int ->
+            println("ZIAD, error $errorCode")
+        })
+
+        viewModel.getStories(character.id, {
+            controller.setData(viewModel.data)
+        }, { errorCode: Int, message: String?, messageId: Int ->
+            println("ZIAD, error $errorCode")
+        })
     }
 }

@@ -27,4 +27,18 @@ interface ApiInterface {
         @Query("offset") offset: Int = 0,
         @Query("limit") limit: Int = 3,
     ): BaseResponse<GenericDetailsResponse>
+
+    @GET(EndPoints.GET_CHARACTERS_FIRST_3_SERIES)
+    suspend fun getFirst3SeriesByCharacterId(
+        @Path("ID") charId: Int,
+        @Query("offset") offset: Int = 0,
+        @Query("limit") limit: Int = 3,
+    ): BaseResponse<GenericDetailsResponse>
+
+    @GET(EndPoints.GET_CHARACTERS_FIRST_3_STORIES)
+    suspend fun getFirst3StoriesByCharacterId(
+        @Path("ID") charId: Int,
+        @Query("offset") offset: Int = 0,
+        @Query("limit") limit: Int = 3,
+    ): BaseResponse<GenericDetailsResponse>
 }

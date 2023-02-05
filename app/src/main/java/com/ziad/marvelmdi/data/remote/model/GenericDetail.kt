@@ -3,7 +3,7 @@ package com.ziad.marvelmdi.data.remote.model
 data class GenericDetail(
     val id: Int,
     val title: String,
-    val description: String,
-    val thumbnail: Thumbnail,
+    val description: String?,
+    val thumbnail: Thumbnail?,
     val urls: List<GenericUrl>?
 ) : BaseDataResponse()

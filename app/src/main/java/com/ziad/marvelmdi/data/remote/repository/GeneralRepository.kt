@@ -24,4 +24,10 @@ class GeneralRepository @Inject constructor(private val api: ApiInterface) : IGe
     override suspend fun getEventsByCharacterId(id: Int): BaseResponse<GenericDetailsResponse> =
         api.getFirst3EventsByCharacterId(id)
 
+    override suspend fun getSeriesByCharacterId(id: Int): BaseResponse<GenericDetailsResponse> =
+        api.getFirst3SeriesByCharacterId(id)
+
+    override suspend fun getStoriesByCharacterId(id: Int): BaseResponse<GenericDetailsResponse> =
+        api.getFirst3StoriesByCharacterId(id)
+
 }

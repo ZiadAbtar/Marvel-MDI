@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.ziad.marvelmdi.data.remote.Resource
 import com.ziad.marvelmdi.domain.use_case.GetComicsUseCase
 import com.ziad.marvelmdi.domain.use_case.GetEventsUseCase
+import com.ziad.marvelmdi.domain.use_case.GetSeriesUseCase
+import com.ziad.marvelmdi.domain.use_case.GetStoriesUseCase
 import com.ziad.marvelmdi.utils.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +17,10 @@ import javax.inject.Inject
 @HiltViewModel
 class CharacterDetailsViewModel @Inject constructor(
     private val comicsUseCase: GetComicsUseCase,
-    private val eventsUseCase: GetEventsUseCase) :
+    private val eventsUseCase: GetEventsUseCase,
+    private val seriesUseCase: GetSeriesUseCase,
+    private val storiesUseCase: GetStoriesUseCase
+) :
     ViewModel() {
 
     private var _data = LinkedHashMap<String, List<Any>?>()
@@ -74,6 +79,68 @@ class CharacterDetailsViewModel @Inject constructor(
                         }
                         is Resource.Success -> {
                             _data[Constants.EVENTS] = resource.data?.data?.results ?: listOf()
+                            onRefresh()
+                        }
+
+                        is Resource.Error -> {
+                            onError(
+                                resource.responseCode,
+                                resource.message,
+                                resource.stringResource
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    fun getSeries(
+        characterId: Int,
+        onRefresh: () -> Unit,
+        onError: (responseCode: Int, message: String?, stringResource: Int) -> Unit
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+            seriesUseCase(characterId).collect { resource ->
+                withContext(Dispatchers.Main) {
+                    when (resource) {
+                        is Resource.Loading -> {
+                            _data[Constants.SERIES] = null
+                            onRefresh()
+                        }
+                        is Resource.Success -> {
+                            _data[Constants.SERIES] = resource.data?.data?.results ?: listOf()
+                            onRefresh()
+                        }
+
+                        is Resource.Error -> {
+                            onError(
+                                resource.responseCode,
+                                resource.message,
+                                resource.stringResource
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    fun getStories(
+        characterId: Int,
+        onRefresh: () -> Unit,
+        onError: (responseCode: Int, message: String?, stringResource: Int) -> Unit
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+            storiesUseCase(characterId).collect { resource ->
+                withContext(Dispatchers.Main) {
+                    when (resource) {
+                        is Resource.Loading -> {
+                            _data[Constants.STORIES] = null
+                            onRefresh()
+                        }
+                        is Resource.Success -> {
+                            _data[Constants.STORIES] = resource.data?.data?.results ?: listOf()
                             onRefresh()
                         }
 

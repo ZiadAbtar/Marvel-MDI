@@ -9,6 +9,7 @@ import com.ziad.marvelmdi.data.remote.model.GenericDetailsResponse
 interface IGeneralRepository {
     suspend fun getCharacters(): Flow<PagingData<Character>>
     suspend fun getComicsByCharacterId(id: Int): BaseResponse<GenericDetailsResponse>
-
     suspend fun getEventsByCharacterId(id: Int): BaseResponse<GenericDetailsResponse>
+    suspend fun getSeriesByCharacterId(id: Int): BaseResponse<GenericDetailsResponse>
+    suspend fun getStoriesByCharacterId(id: Int): BaseResponse<GenericDetailsResponse>
 }
