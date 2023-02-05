@@ -9,6 +9,19 @@
         android:id="@+id/nav_fragment_characters"
         android:name="com.ziad.marvelmdi.presentation.characters.CharactersFragment"
         android:label="@string/Marvel_Characters"
-        tools:layout="@layout/fragment_characters" />
+        tools:layout="@layout/fragment_characters">
+        <action
+            android:id="@+id/action_fragment_characters_to_fragment_characters_details"
+            app:destination="@+id/nav_fragment_characters_details" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_fragment_characters_details"
+        android:name="com.ziad.marvelmdi.presentation.character_details.CharacterDetailsFragment"
+        tools:layout="@layout/fragment_charachter_details">
+        <argument
+            android:name="character"
+            app:argType="com.ziad.marvelmdi.data.remote.model.Character" />
+    </fragment>
 
 </navigation>
