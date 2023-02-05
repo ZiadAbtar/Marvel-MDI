@@ -9,7 +9,8 @@ import com.ziad.marvelmdi.presentation.core.ErrorEpoxyModel_
 import com.ziad.marvelmdi.presentation.core.LoadingEpoxyModel_
 
 
-class CharacterListEpoxyController : PagingDataEpoxyController<Character>() {
+class CharacterListEpoxyController(val onItemClicked: (character: Character) -> Unit) :
+    PagingDataEpoxyController<Character>() {
 
 
     private var isError = false
@@ -65,9 +66,9 @@ class CharacterListEpoxyController : PagingDataEpoxyController<Character>() {
         item: Character?
     ): EpoxyModel<*> {
         item?.let {
-            //Movie Item View Model
             return CharacterItemModel_()
                 .id("${item.id} $currentPosition")
+                .onItemClicked(onItemClicked)
                 .character(item)
 
         } ?: run {

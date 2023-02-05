@@ -2,6 +2,7 @@ package com.ziad.marvelmdi.presentation.characters
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.ziad.marvelmdi.databinding.FragmentCharactersBinding
 import com.ziad.marvelmdi.presentation.core.BaseFragment
@@ -16,7 +17,9 @@ class CharactersFragment :
         super.onViewCreated(view, savedInstanceState)
 
         val rv = binding.rvCharacters
-        val controller = CharacterListEpoxyController()
+        val controller = CharacterListEpoxyController {
+            Toast.makeText(requireContext(), it.name, Toast.LENGTH_SHORT).show()
+        }
 
         rv.setController(controller)
         viewModel.fetchCharacters {
