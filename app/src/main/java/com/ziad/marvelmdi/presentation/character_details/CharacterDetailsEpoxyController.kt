@@ -4,6 +4,7 @@ import com.airbnb.epoxy.CarouselModel_
 import com.airbnb.epoxy.EpoxyController
 import com.airbnb.epoxy.carousel
 import com.ziad.marvelmdi.data.remote.model.Comic
+import com.ziad.marvelmdi.presentation.core.EmptyEpoxyModel_
 import com.ziad.marvelmdi.presentation.core.LoadingEpoxyModel_
 import com.ziad.marvelmdi.utils.Constants
 
@@ -20,7 +21,7 @@ class CharacterDetailsEpoxyController(
     }
 
     override fun buildModels() {
-        data.forEach { type, array ->
+        data.forEach { (type, array) ->
             when (type) {
                 Constants.COMICS -> {
                     TitleEpoxyModel_()
@@ -31,6 +32,10 @@ class CharacterDetailsEpoxyController(
                     if (array == null) {
                         LoadingEpoxyModel_()
                             .id("$type loading")
+                            .addTo(this)
+                    } else if (array.isEmpty()) {
+                        EmptyEpoxyModel_()
+                            .id("$type empty")
                             .addTo(this)
                     } else {
                         val comicModels = arrayListOf<ComicItemModel_>()
