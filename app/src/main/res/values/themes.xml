@@ -10,5 +10,6 @@
         <!-- Customize your theme here. -->
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>
+        <item name="colorControlNormal">@color/white</item>
     </style>
 </resources>
