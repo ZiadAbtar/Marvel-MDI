@@ -7,4 +7,6 @@ object EndPoints {
 
     const val GET_CHARACTERS = "characters"
 
+    const val GET_CHARACTERS_FIRST_3_COMICS = "characters/{ID}/comics"
+
 }

@@ -1,5 +1,5 @@
 package com.ziad.marvelmdi.data.remote.model
 
-data class CharactersResponse(
-    val results: List<Character>
+data class ComicsResponse(
+    val results: List<Comic>
 ) : BaseDataResponse()

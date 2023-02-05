@@ -1,8 +1,8 @@
 package com.ziad.marvelmdi.domain.repository
 
-import androidx.paging.PagingData
-import kotlinx.coroutines.flow.Flow
+import com.ziad.marvelmdi.data.remote.model.BaseResponse
+import com.ziad.marvelmdi.data.remote.model.ComicsResponse
 
 interface IGeneralRepository {
-    suspend fun getCharacters(): Flow<PagingData<com.ziad.marvelmdi.data.remote.model.Character>>
+    suspend fun getComicsByCharacterId(id: Int): BaseResponse<ComicsResponse>
 }
